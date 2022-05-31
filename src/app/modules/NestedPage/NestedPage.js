@@ -3,7 +3,7 @@ import { Redirect, Switch } from "react-router-dom";
 import { ContentRoute } from "../../../_metronic/layout";
 import { InputsPage } from "./inputs/InputsPage";
 
-export default function GoogleMaterialPage() {
+export default function nestedPage() {
   return (
     <Switch>
       <Redirect

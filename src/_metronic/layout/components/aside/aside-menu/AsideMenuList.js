@@ -35,13 +35,13 @@ export function AsideMenuList({ layoutProps }) {
 
         <li
           className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/dashboard",
+            "/test",
             true
           )}`}
           aria-haspopup="true"
           data-menu-toggle="hover"
         >
-          <NavLink className="menu-link menu" to="/dashboard">
+          <NavLink className="menu-link menu" to="/test">
             <span className="svg-icon menu-icon">
               <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
             </span>
