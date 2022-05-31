@@ -8,15 +8,6 @@ import { DashboardPage } from "./pages/DashboardPage";
 const GoogleMaterialPage = lazy(() =>
   import("./modules/GoogleMaterialExamples/GoogleMaterialPage")
 );
-const ReactBootstrapPage = lazy(() =>
-  import("./modules/ReactBootstrapExamples/ReactBootstrapPage")
-);
-const ECommercePage = lazy(() =>
-  import("./modules/ECommerce/pages/eCommercePage")
-);
-const UserProfilepage = lazy(() =>
-  import("./modules/UserProfile/UserProfilePage")
-);
 
 export default function BasePage() {
   // useEffect(() => {
@@ -32,12 +23,7 @@ export default function BasePage() {
           <Redirect exact from="/" to="/dashboard" />
         }
         <ContentRoute path="/dashboard" component={DashboardPage} />
-        <ContentRoute path="/builder" component={BuilderPage} />
-        <ContentRoute path="/my-page" component={MyPage} />
         <Route path="/google-material" component={GoogleMaterialPage} />
-        <Route path="/react-bootstrap" component={ReactBootstrapPage} />
-        <Route path="/e-commerce" component={ECommercePage} />
-        <Route path="/user-profile" component={UserProfilepage} />
         <Redirect to="error/error-v1" />
       </Switch>
     </Suspense>

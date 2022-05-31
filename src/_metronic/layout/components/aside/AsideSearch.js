@@ -87,7 +87,7 @@ export function AsideSearch({ isActive }) {
           {/* begin::Text */}
           <div className="d-flex flex-column flex-grow-1 mr-2">
             <span className="text-dark-75 font-size-h6 mb-0">
-              Bravio Application
+              Bravio Applicatio2n
             </span>
             <a
               href="#"

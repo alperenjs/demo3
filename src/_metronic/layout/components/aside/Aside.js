@@ -95,7 +95,7 @@ export function Aside() {
                 <OverlayTrigger
                   placement="right"
                   overlay={
-                    <Tooltip id="latest-project">Latest Project</Tooltip>
+                    <Tooltip id="latest-project">Latest1 Project</Tooltip>
                   }
                 >
                   <a
@@ -131,7 +131,7 @@ export function Aside() {
                 <OverlayTrigger
                   placement="right"
                   overlay={
-                    <Tooltip id="metronic-features">Metronic Features</Tooltip>
+                    <Tooltip id="metronic-features">Metronic Featu2res</Tooltip>
                   }
                 >
                   <a
@@ -147,144 +147,6 @@ export function Aside() {
                       <SVG
                         src={toAbsoluteUrl(
                           "/media/svg/icons/Communication/Group.svg"
-                        )}
-                      />
-                    </span>
-                  </a>
-                </OverlayTrigger>
-              </li>
-              {/* end::Item */}
-
-              {/* begin::Item */}
-              <li
-                className="nav-item mb-3"
-                data-toggle="tooltip"
-                data-placement="rigth"
-                data-container="body"
-                data-boundary="window"
-                title="Latest Reports"
-              >
-                <OverlayTrigger
-                  placement="right"
-                  overlay={
-                    <Tooltip id="latest-reports">Latest Reports</Tooltip>
-                  }
-                >
-                  <a
-                    href="#"
-                    className="nav-link btn btn-icon btn-clean btn-lg"
-                    data-toggle="tab"
-                    data-target="#kt_aside_tab_3"
-                    role="tab"
-                  >
-                    <span className="svg-icon svg-icon-lg">
-                      <SVG
-                        src={toAbsoluteUrl(
-                          "/media/svg/icons/Media/Equalizer.svg"
-                        )}
-                      />
-                    </span>
-                  </a>
-                </OverlayTrigger>
-              </li>
-              {/* end::Item */}
-
-              {/* begin::Item */}
-              <li
-                className="nav-item mb-3"
-                data-toggle="tooltip"
-                data-placement="rigth"
-                data-container="body"
-                data-boundary="window"
-                title="Project Management"
-              >
-                <OverlayTrigger
-                  placement="right"
-                  overlay={
-                    <Tooltip id="project-management">
-                      Project Management
-                    </Tooltip>
-                  }
-                >
-                  <a
-                    href="#"
-                    className="nav-link btn btn-icon btn-clean btn-lg"
-                    data-toggle="tab"
-                    data-target="#kt_aside_tab_4"
-                    role="tab"
-                  >
-                    <span className="svg-icon svg-icon-lg">
-                      <SVG
-                        src={toAbsoluteUrl(
-                          "/media/svg/icons/General/Shield-check.svg"
-                        )}
-                      />
-                    </span>
-                  </a>
-                </OverlayTrigger>
-              </li>
-              {/* end::Item */}
-
-              {/* begin::Item */}
-              <li
-                className="nav-item mb-3"
-                data-toggle="tooltip"
-                data-placement="rigth"
-                data-container="body"
-                data-boundary="window"
-                title="User Management"
-              >
-                <OverlayTrigger
-                  placement="right"
-                  overlay={
-                    <Tooltip id="user-management">User Management</Tooltip>
-                  }
-                >
-                  <a
-                    href="#"
-                    className="nav-link btn btn-icon btn-clean btn-lg"
-                    data-toggle="tab"
-                    data-target="#kt_aside_tab_5"
-                    role="tab"
-                  >
-                    <span className="svg-icon svg-icon-lg">
-                      <SVG
-                        src={toAbsoluteUrl("/media/svg/icons/Home/Library.svg")}
-                      />
-                    </span>
-                  </a>
-                </OverlayTrigger>
-              </li>
-              {/* end::Item */}
-
-              {/* begin::Item */}
-              <li
-                className="nav-item mb-3"
-                data-toggle="tooltip"
-                data-placement="rigth"
-                data-container="body"
-                data-boundary="window"
-                title="Finance & Accounting"
-              >
-                <OverlayTrigger
-                  placement="right"
-                  overlay={
-                    <Tooltip id="finance-accounting">
-                      Finance & Accounting
-                    </Tooltip>
-                  }
-                >
-                  <a
-                    href="#"
-                    className="nav-link btn btn-icon btn-clean btn-lg"
-                    data-toggle="tab"
-                    data-target="#kt_aside_tab_6"
-                    role="tab"
-                  >
-                    <span className="svg-icon svg-icon-lg">
-                      <SVG
-                        src={toAbsoluteUrl(
-                          "/media/svg/icons/Files/File-plus.svg"
                         )}
                       />
                     </span>
@@ -438,8 +300,8 @@ export function Aside() {
               {/* begin::Workspace */}
               <div className="aside-workspace scroll scroll-push my-2">
                 <div className="tab-content">
-                  <AsideSearch isActive={activeTab === tabs.tabId1} />
-                  <AsideMenu isActive={activeTab === tabs.tabId2} />
+                  <AsideSearch isActive={activeTab === tabs.tabId2} />
+                  <AsideMenu isActive={activeTab === tabs.tabId1} />
                 </div>
               </div>
               {/* end::Workspace */}
