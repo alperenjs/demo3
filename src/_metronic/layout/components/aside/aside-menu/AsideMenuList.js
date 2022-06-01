@@ -35,13 +35,13 @@ export function AsideMenuList({ layoutProps }) {
 
         <li
           className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/test",
+            "/testmest",
             true
           )}`}
           aria-haspopup="true"
           data-menu-toggle="hover"
         >
-          <NavLink className="menu-link menu" to="/test">
+          <NavLink className="menu-link menu" to="/testmest">
             <span className="svg-icon menu-icon">
               <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
             </span>
@@ -123,6 +123,25 @@ export function AsideMenuList({ layoutProps }) {
                       </NavLink>
                     </li>
                     {/*end::3 Level*/}
+
+                    <li
+                      className={`menu-item  ${getMenuItemActive(
+                        "/google-material/inputs/test2"
+                      )}`}
+                      aria-haspopup="true"
+                    >
+                      <NavLink
+                        className="menu-link"
+                        to="/google-material/inputs/test2"
+                      >
+                        <i className="menu-bullet menu-bullet-dot">
+                          <span />
+                        </i>
+                        <span className="menu-text">test 2</span>
+                      </NavLink>
+                    </li>
+
+
                   </ul>
                 </div>
               </li>

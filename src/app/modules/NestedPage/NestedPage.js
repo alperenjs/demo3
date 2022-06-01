@@ -1,19 +1,23 @@
 import React from "react";
-import { Redirect, Switch } from "react-router-dom";
-import { ContentRoute } from "../../../_metronic/layout";
-import { InputsPage } from "./inputs/InputsPage";
+import { Navigate, Route, Routes } from "react-router-dom";
+import AutocompleteExamplesPage from "./inputs/AutocompleteExamplesPage";
+import Test2 from "./inputs/Test2";
 
 export default function nestedPage() {
   return (
-    <Switch>
-      <Redirect
-        exact={true}
-        from="/google-material"
-        to="/google-material/inputs/autocomplete"
+    <Routes>
+      <Route
+        index
+        element={<Navigate to="/google-material/inputs/autocomplete" />}
       />
-      {/* Inputs */}
-      <ContentRoute from="/google-material/inputs" component={InputsPage} />
+
+      <Route
+        path="/inputs/autocomplete"
+        element={<AutocompleteExamplesPage />}
+      />
+
+      <Route path="/inputs/test2" element={<Test2 />} />
       {/* Data Display */}
-    </Switch>
+    </Routes>
   );
 }

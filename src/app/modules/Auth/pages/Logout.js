@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Redirect} from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import {LayoutSplashScreen} from "../../../../_metronic/layout";
 
 class Logout extends Component {
@@ -9,7 +9,7 @@ class Logout extends Component {
 
   render() {
     const { hasAuthToken } = this.props;
-    return hasAuthToken ? <LayoutSplashScreen /> : <Redirect to="/auth/login" />;
+    return hasAuthToken ? <LayoutSplashScreen /> : <Navigate to="/auth/login" />;
   }
 }
 

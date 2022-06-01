@@ -4,7 +4,7 @@
 
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import { Routes } from "../app/Routes";
+import { Routess } from "../app/Routes";
 import { I18nProvider } from "../_metronic/i18n";
 import { LayoutSplashScreen, MaterialThemeProvider } from "../_metronic/layout";
 
@@ -19,7 +19,7 @@ export default function App({ store, persistor, basename }) {
           {/* Provide `react-intl` context synchronized with Redux state.  */}
           <I18nProvider>
             {/* Render routes with provided `Layout`. */}
-            <Routes />
+            <Routess />
           </I18nProvider>
         </MaterialThemeProvider>
       </BrowserRouter>

@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ContentRoute, LayoutSplashScreen } from "../_metronic/layout";
 import Test from "./modules/Test/Test";
 
@@ -13,15 +13,15 @@ export default function BasePage() {
 
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
-      <Switch>
+      <Routes>
         {
           /* Redirect from root URL to /test. */
-          <Redirect exact from="/" to="/test" />
+          <Route index element={<Navigate to="/testmest" replace={true} />} />
         }
-        <ContentRoute path="/test" component={Test} />
-        <Route path="/google-material" component={NestedPage} />
-        <Redirect to="error/error-v1" />
-      </Switch>
+        <Route path="/testmest" element={<Test />} />
+        <Route path="/google-material/*" element={<NestedPage />} />
+        <Route element={<Navigate to="error/error-v1" />} />
+      </Routes>
     </Suspense>
   );
 }

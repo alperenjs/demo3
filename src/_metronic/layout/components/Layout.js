@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import objectPath from "object-path";
+import { Outlet } from "react-router-dom";
 // LayoutContext
 import { useHtmlClassService } from "../_core/MetronicLayout";
 // Import Layout components
@@ -9,7 +10,6 @@ import { Footer } from "./footer/Footer";
 import { LayoutInit } from "./LayoutInit";
 import { SubHeader } from "./subheader/SubHeader";
 import { ScrollTop } from "./extras/ScrollTop";
-import { AnimateLoading } from "../../_partials/controls";
 
 export function Layout({ children }) {
   const uiService = useHtmlClassService();
@@ -44,7 +44,6 @@ export function Layout({ children }) {
               id="kt_content"
               className={`content ${layoutProps.contentCssClasses} d-flex flex-column flex-column-fluid`}
             >
-              <AnimateLoading />
               {layoutProps.subheaderDisplay && <SubHeader />}
 
               {/*begin::Entry*/}
@@ -54,7 +53,7 @@ export function Layout({ children }) {
                 <div className="d-flex flex-column-fluid">
                   {/*begin::Container*/}
                   <div className={layoutProps.contentContainerClasses}>
-                    {children}
+                   <Outlet/>
                   </div>
                   {/*end::Container*/}
                 </div>
@@ -69,9 +68,9 @@ export function Layout({ children }) {
         </div>
         {/*end::Page*/}
       </div>
-    
+
       <ScrollTop />
- 
+
       {/*end::Main*/}
       <LayoutInit />
     </>

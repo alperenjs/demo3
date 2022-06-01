@@ -6,38 +6,36 @@
  */
 
 import React from "react";
-import { Redirect, Switch, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "../_metronic/layout";
 import BasePage from "./BasePage";
 import { Logout, AuthPage } from "./modules/Auth";
 import ErrorsPage from "./modules/ErrorsExamples/ErrorsPage";
 
-export function Routes() {
+export function Routess() {
   const isAuthorized = true;
 
   return (
-    <Switch>
+    <Routes>
       {!isAuthorized ? (
         /*Render auth page when user at `/auth` and not authorized.*/
-        <Route>
-          <AuthPage />
-        </Route>
+        <Route path="/*" element={<AuthPage />} />
       ) : (
-        /*Otherwise redirect to root page (`/`)*/
-        <Redirect from="/auth" to="/" />
+        /*Otherwise Navigate to root page (`/`)*/
+        <Route path="/auth/*" element={<Navigate to="/" />} />
       )}
 
-      <Route path="/error" component={ErrorsPage} />
-      <Route path="/logout" component={Logout} />
+      <Route path="/error" element={<ErrorsPage />} />
+      <Route path="/logout" element={<Logout />} />
 
       {!isAuthorized ? (
-        /*Redirect to `/auth` when user is not authorized*/
-        <Redirect to="/auth/login" />
+        /*Navigate to `/auth` when user is not authorized*/
+        <Route path="*" element={<Navigate to="/auth/login" />} />
       ) : (
-        <Layout>
-          <BasePage />
-        </Layout>
+        <Route element={<Layout />}>
+          <Route path="/*" element={<BasePage />} />
+        </Route>
       )}
-    </Switch>
+    </Routes>
   );
 }
