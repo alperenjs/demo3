@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { connect } from "react-redux";
 import { FormattedMessage, injectIntl } from "react-intl";
-import * as auth from "../_redux/authRedux";
-import { login } from "../_redux/authCrud";
+
 
 /*
   INTL (i18n) docs:
@@ -71,23 +69,23 @@ function Login(props) {
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
       setTimeout(() => {
-        login(values.email, values.password)
-          .then(({ data: { authToken } }) => {
-            disableLoading();
+        // login(values.email, values.password)
+        //   .then(({ data: { authToken } }) => {
+        //     disableLoading();
 
-            props.login(authToken);
-          })
-          .catch(() => {
-            setStatus(
-              intl.formatMessage({
-                id: "AUTH.VALIDATION.INVALID_LOGIN",
-              })
-            );
-          })
-          .finally(() => {
-            disableLoading();
-            setSubmitting(false);
-          });
+        //     props.login(authToken);
+        //   })
+        //   .catch(() => {
+        //     setStatus(
+        //       intl.formatMessage({
+        //         id: "AUTH.VALIDATION.INVALID_LOGIN",
+        //       })
+        //     );
+        //   })
+        //   .finally(() => {
+        //     disableLoading();
+        //     setSubmitting(false);
+        //   });
       }, 1000);
     },
   });
@@ -179,4 +177,4 @@ function Login(props) {
   );
 }
 
-export default injectIntl(connect(null, auth.actions)(Login));
+export default injectIntl(Login);

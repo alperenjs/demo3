@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import { connect } from "react-redux";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
-import * as auth from "../_redux/authRedux";
-import { register } from "../_redux/authCrud";
 
 const initialValues = {
   fullname: "",
@@ -97,21 +94,21 @@ function Registration(props) {
     onSubmit: (values, { setStatus, setSubmitting }) => {
       setSubmitting(true);
       enableLoading();
-      register(values.email, values.fullname, values.username, values.password)
-        .then(({ data: { authToken } }) => {
-          props.register(authToken);
-          disableLoading();
-          setSubmitting(false);
-        })
-        .catch(() => {
-          setSubmitting(false);
-          setStatus(
-            intl.formatMessage({
-              id: "AUTH.VALIDATION.INVALID_LOGIN",
-            })
-          );
-          disableLoading();
-        });
+      // register(values.email, values.fullname, values.username, values.password)
+      //   .then(({ data: { authToken } }) => {
+      //     props.register(authToken);
+      //     disableLoading();
+      //     setSubmitting(false);
+      //   })
+      //   .catch(() => {
+      //     setSubmitting(false);
+      //     setStatus(
+      //       intl.formatMessage({
+      //         id: "AUTH.VALIDATION.INVALID_LOGIN",
+      //       })
+      //     );
+      //     disableLoading();
+      //   });
     },
   });
 
@@ -290,4 +287,4 @@ function Registration(props) {
   );
 }
 
-export default injectIntl(connect(null, auth.actions)(Registration));
+export default injectIntl(Registration);

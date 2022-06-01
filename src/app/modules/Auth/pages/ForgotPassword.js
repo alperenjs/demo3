@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import * as Yup from "yup";
 import { injectIntl } from "react-intl";
-import * as auth from "../_redux/authRedux";
-import { requestPassword } from "../_redux/authCrud";
+
 
 const initialValues = {
   email: "",
@@ -42,18 +40,18 @@ function ForgotPassword(props) {
     initialValues,
     validationSchema: ForgotPasswordSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
-      requestPassword(values.email)
-        .then(() => setIsRequested(true))
-        .catch(() => {
-          setIsRequested(false);
-          setSubmitting(false);
-          setStatus(
-            intl.formatMessage(
-              { id: "AUTH.VALIDATION.NOT_FOUND" },
-              { name: values.email }
-            )
-          );
-        });
+      // requestPassword(values.email)
+      //   .then(() => setIsRequested(true))
+      //   .catch(() => {
+      //     setIsRequested(false);
+      //     setSubmitting(false);
+      //     setStatus(
+      //       intl.formatMessage(
+      //         { id: "AUTH.VALIDATION.NOT_FOUND" },
+      //         { name: values.email }
+      //       )
+      //     );
+      //   });
     },
   });
 
@@ -120,4 +118,4 @@ function ForgotPassword(props) {
   );
 }
 
-export default injectIntl(connect(null, auth.actions)(ForgotPassword));
+export default injectIntl(ForgotPassword);
