@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import AutocompleteExamplesPage from "./inputs/AutocompleteExamplesPage";
+import Duru from "./inputs/Duru";
 import Test2 from "./inputs/Test2";
 
 export default function nestedPage() {
@@ -17,6 +18,7 @@ export default function nestedPage() {
       />
 
       <Route path="/inputs/test2" element={<Test2 />} />
+      <Route path="/inputs/duru" element={<Duru />} />
       {/* Data Display */}
     </Routes>
   );

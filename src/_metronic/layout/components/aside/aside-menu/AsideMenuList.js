@@ -141,6 +141,23 @@ export function AsideMenuList({ layoutProps }) {
                       </NavLink>
                     </li>
 
+                    <li
+                      className={`menu-item  ${getMenuItemActive(
+                        "/google-material/inputs/duru"
+                      )}`}
+                      aria-haspopup="true"
+                    >
+                      <NavLink
+                        className="menu-link"
+                        to="/google-material/inputs/duru"
+                      >
+                        <i className="menu-bullet menu-bullet-dot">
+                          <span />
+                        </i>
+                        <span className="menu-text">Duru</span>
+                      </NavLink>
+                    </li>
+
 
                   </ul>
                 </div>
