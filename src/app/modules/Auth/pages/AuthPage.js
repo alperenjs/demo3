@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import { Navigate, Route, Routes, Link, Outlet } from "react-router-dom";
+import { Link, Navigate, Route, Routes } from "react-router-dom";
+import "../../../../_metronic/_assets/sass/pages/login/classic/login-1.scss";
 import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
-import { ContentRoute } from "../../../../_metronic/layout";
+import ForgotPassword from "./ForgotPassword";
 import Login from "./Login";
 import Registration from "./Registration";
-import ForgotPassword from "./ForgotPassword";
-import "../../../../_metronic/_assets/sass/pages/login/classic/login-1.scss";
 
 export function AuthPage() {
   return (
@@ -93,11 +92,11 @@ export function AuthPage() {
               <Routes>
                 <Route path="*" element={<Navigate to="/auth/login" />} />
 
-                <Route path="/auth/login" element={<Login />} />
+                <Route path="/login" element={<Login />} />
 
-                <Route path="/auth/registration" element={<Registration />} />
+                <Route path="/registration" element={<Registration />} />
                 <Route
-                  path="/auth/forgot-password"
+                  path="/forgot-password"
                   element={<ForgotPassword />}
                 />
               </Routes>

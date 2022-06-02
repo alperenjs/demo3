@@ -11,7 +11,7 @@ const initialValues = {
 
 function ForgotPassword(props) {
   const { intl } = props;
-  const [isRequested, setIsRequested] = useState(false);
+  const [isRequested] = useState(false);
   const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string()
       .email("Wrong email format")

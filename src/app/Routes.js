@@ -9,6 +9,9 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Layout, LayoutSplashScreen } from "../_metronic/layout";
 import { AuthPage } from "./modules/Auth";
 import ErrorsPage from "./modules/ErrorsExamples/ErrorsPage";
+import Unauthorized from "./modules/ErrorsExamples/Unauthorized";
+import ProtectedRoute from "./base/ProtectedRoute";
+
 import Test from "./modules/Test/Test";
 
 const NestedPage = lazy(() => import("./modules/NestedPage/routes"));
@@ -31,21 +34,16 @@ export function Routess() {
           /*Navigate to `/auth` when user is not authorized*/
           <Route path="*" element={<Navigate to="/auth/login" />} />
         ) : (
-          <Route element={<Layout />}>
-            {/* <Route path="/*" element={<BasePage />} /> */}
-            {
-              /* Redirect from root URL to /test. */
-              <Route
-                index
-                element={<Navigate to="/testmest" replace={true} />}
-              />
-            }
-            <Route path="/testmest" element={<Test />} />
-            <Route path="/google-material/*" element={<NestedPage />} />
+          <Route element={<Layout />} /* Main Content with Layout */>
+            <Route path="/" element={<Test />} />
+            <Route element={<ProtectedRoute allowedRoles={[4, 5, 6]} />}>
+              <Route path="/google-material/*" element={<NestedPage />} />
+            </Route>
           </Route>
         )}
 
-        <Route path="*" element={<ErrorsPage />} />
+        <Route path="unauthorized" element={<Unauthorized />} />
+        <Route path="*" element={<ErrorsPage /> /* Catch All */} />
       </Routes>
     </Suspense>
   );

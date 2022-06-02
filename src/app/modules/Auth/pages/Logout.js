@@ -1,6 +1,6 @@
-import React, {Component} from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import {LayoutSplashScreen} from "../../../../_metronic/layout";
+import React, { Component } from "react";
+import { Navigate } from "react-router-dom";
+import { LayoutSplashScreen } from "../../../../_metronic/layout";
 
 class Logout extends Component {
   componentDidMount() {

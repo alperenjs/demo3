@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import React, { useState } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
+import { Link } from "react-router-dom";
+import * as Yup from "yup";
 
 
 /*
@@ -47,14 +47,14 @@ function Login(props) {
     setLoading(true);
   };
 
-  const disableLoading = () => {
-    setLoading(false);
-  };
+  // const disableLoading = () => {
+  //   setLoading(false);
+  // };
 
   const getInputClasses = (fieldname) => {
     if (formik.touched[fieldname] && formik.errors[fieldname]) {
       return "is-invalid";
-    }
+  }
 
     if (formik.touched[fieldname] && !formik.errors[fieldname]) {
       return "is-valid";
