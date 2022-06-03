@@ -46,8 +46,10 @@ export function SubHeader() {
         ? aside.title
         : header.title
     );
+
     // eslint-disable-next-line
   }, [location.pathname]);
+
 
   // Do not remove this useEffect, need from update title/breadcrumbs outside (from the page)
   useEffect(() => {}, [subheader]);

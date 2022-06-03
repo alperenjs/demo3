@@ -13,6 +13,7 @@ import Unauthorized from "./modules/ErrorsExamples/Unauthorized";
 import ProtectedRoute from "./base/ProtectedRoute";
 
 import Test from "./modules/Test/Test";
+import ExamplePage1 from "./modules/ExampleModule/ExamplePage1";
 
 const NestedPage = lazy(() => import("./modules/NestedPage/routes"));
 
@@ -27,7 +28,7 @@ export function Routess() {
           <Route path="/*" element={<AuthPage />} />
         ) : (
           /*Otherwise Navigate to root page (`/`)*/
-          <Route path="/auth/*" element={<Navigate to="/" />} />
+          <Route path="/auth/*" element={<Navigate to="/dashboard" />} />
         )}
 
         {!isAuthorized ? (
@@ -35,8 +36,9 @@ export function Routess() {
           <Route path="*" element={<Navigate to="/auth/login" />} />
         ) : (
           <Route element={<Layout />} /* Main Content with Layout */>
-            <Route path="/" element={<Test />} />
-            <Route element={<ProtectedRoute allowedRoles={[4, 5, 6]} />}>
+            <Route path="/dashboard" element={<Test />} />
+            <Route path="/examplePage1" element={<ExamplePage1 />} />
+            <Route element={<ProtectedRoute allowedRoles={[1, 5, 6]} />}>
               <Route path="/google-material/*" element={<NestedPage />} />
             </Route>
           </Route>

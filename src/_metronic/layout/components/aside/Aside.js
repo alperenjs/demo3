@@ -1,16 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useMemo, useState } from "react";
 import objectPath from "object-path";
+import React, { useMemo, useState } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import SVG from "react-inlinesvg";
-import { useHtmlClassService } from "../../_core/MetronicLayout";
 import { toAbsoluteUrl } from "../../../_helpers";
-import { AsideSearch } from "./AsideSearch";
-import { AsideMenu } from "./aside-menu/AsideMenu";
+import { useHtmlClassService } from "../../_core/MetronicLayout";
+import { Brand } from "../brand/Brand";
 import { LanguageSelectorDropdown } from "../extras/dropdowns/LanguageSelectorDropdown";
 import { QuickUserToggler } from "../extras/QuickUserToggler";
-import { Brand } from "../brand/Brand";
 import { KTUtil } from "./../../../_assets/js/components/util";
+import { AsideMenu } from "./aside-menu/AsideMenu";
 
 export function Aside() {
   const uiService = useHtmlClassService();
@@ -59,7 +58,7 @@ export function Aside() {
   };
 
   const [activeTab, setActiveTab] = useState(tabs.tabId1);
-  
+
   const handleTabChange = (id) => {
     setActiveTab(id);
     const asideWorkspace = KTUtil.find(
@@ -101,7 +100,6 @@ export function Aside() {
                   }
                 >
                   <a
-                    href="#"
                     className={`nav-link btn btn-icon btn-clean btn-lg ${activeTab ===
                       tabs.tabId1 && "active"}`}
                     data-toggle="tab"
@@ -137,7 +135,6 @@ export function Aside() {
                   }
                 >
                   <a
-                    href="#"
                     className={`nav-link btn btn-icon btn-clean btn-lg ${activeTab ===
                       tabs.tabId2 && "active"}`}
                     data-toggle="tab"
@@ -189,7 +186,6 @@ export function Aside() {
                 overlay={<Tooltip id="toggle-search">Quick Search</Tooltip>}
               >
                 <a
-                  href="#"
                   className="btn btn-icon btn-clean btn-lg mb-1"
                   id="kt_quick_search_toggle"
                 >
@@ -212,7 +208,6 @@ export function Aside() {
                 }
               >
                 <a
-                  href="#"
                   className="btn btn-icon btn-clean btn-lg mb-1 position-relative"
                   id="kt_quick_notifications_toggle"
                   data-placement="right"
@@ -238,7 +233,6 @@ export function Aside() {
                 }
               >
                 <a
-                  href="#"
                   className="btn btn-icon btn-clean btn-lg mb-1"
                   id="kt_quick_actions_toggle"
                 >
@@ -261,7 +255,6 @@ export function Aside() {
                 overlay={<Tooltip id="toggle-quick-panel">Quick Panel</Tooltip>}
               >
                 <a
-                  href="#"
                   className="btn btn-icon btn-clean btn-lg mb-1 position-relative"
                   id="kt_quick_panel_toggle"
                   data-placement="right"
@@ -302,8 +295,11 @@ export function Aside() {
               {/* begin::Workspace */}
               <div className="aside-workspace scroll scroll-push my-2">
                 <div className="tab-content">
-                  <AsideSearch isActive={activeTab === tabs.tabId2} />
-                  <AsideMenu isActive={activeTab === tabs.tabId1} />
+                  <AsideMenu
+                    activeMenu={activeTab}
+                    isActive={activeTab === tabs.tabId1}
+                    layoutProps={layoutProps}
+                  />
                 </div>
               </div>
               {/* end::Workspace */}

@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useMemo } from "react";
-import { AsideMenuList } from "./AsideMenuList";
 import { useHtmlClassService } from "../../../_core/MetronicLayout";
-import { AsideSearchList } from "../aside-menu-2/AsideSearchList";
+import AsideSearchList from "./AsideSearchList";
 
-export function AsideMenu({ isActive, activeMenu }) {
+export function AsideSearch({ isActive }) {
   const uiService = useHtmlClassService();
   const layoutProps = useMemo(() => {
     return {
@@ -15,20 +16,16 @@ export function AsideMenu({ isActive, activeMenu }) {
   }, [uiService]);
 
   return (
-    <div className={`tab-pane fade show active`}>
+    <div className={`tab-pane fade ${isActive && "show active"}`}>
       <div className="aside-menu-wrapper flex-column-fluid px-10 py-5">
         {/* begin::Menu Container */}
         <div
-          id="kt_aside_menu"
-          data-menu-vertical="1"
+          id="kt_aside_menu_2"
+          data-menu-vertical="2"
           className={`aside-menu  min-h-lg-800px ${layoutProps.asideClassesFromConfig}`}
           {...layoutProps.asideMenuAttr}
         >
-          {activeMenu === "kt_aside_tab_1" ? (
-            <AsideMenuList layoutProps={layoutProps} />
-          ) : (
-            <AsideSearchList layoutProps={layoutProps} />
-          )}
+          <AsideSearchList layoutProps={layoutProps} />
         </div>
         {/* end::Menu Container */}
       </div>

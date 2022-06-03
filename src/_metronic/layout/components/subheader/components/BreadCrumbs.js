@@ -10,7 +10,7 @@ export function BreadCrumbs({ items }) {
   return (
     <ul className="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold my-2 p-0">
       <Link className="breadcrumb-item" to="/dashboard">
-        Dashboard
+        Home
       </Link>
       {items.map((item, index) => (
         <li className="breadcrumb-item" key={index}>
