@@ -13,8 +13,6 @@
 /.idea
 
 # assets
-/public/media
-
 
 # production
 /_site
