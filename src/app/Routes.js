@@ -29,7 +29,7 @@ export function Routess() {
         ) : (
           /*Otherwise Navigate to root page (`/`)*/
           <Route element={<Layout />} /* Main Content with Layout */>
-            <Route path="/auth*" element={<Navigate to="/module_1/dashboard" />} />
+            <Route path="/*" element={<Navigate to="/module_1/dashboard" />} />
             <Route path="/module_1/dashboard" element={<Test />} />
             <Route path="/module_2/examplePage1" element={<ExamplePage1 />} />
             {/* module */}
