@@ -33,7 +33,7 @@ export function Routess() {
             <Route path="/module_1/dashboard" element={<Test />} />
             <Route path="/module_2/examplePage1" element={<ExamplePage1 />} />
             {/* module */}
-            <Route element={<ProtectedRoute allowedRoles={[1, 5, 6]} />}>
+            <Route element={<ProtectedRoute allowedRoles={[9]} />}>
               <Route
                 path="/module_1/google-material/*"
                 element={<NestedPage />}

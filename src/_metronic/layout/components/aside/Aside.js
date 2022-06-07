@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import objectPath from "object-path";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import SVG from "react-inlinesvg";
 import { menu } from "../../../../app/Menu";
@@ -61,6 +61,10 @@ export function Aside() {
   const [activeTab, setActiveTab] = useState(() => {
     return currentPathID;
   });
+
+  useEffect(() => {
+    setActiveTab(currentPathID)
+  }, [currentPathID])
 
   const handleTabChange = (id) => {
     setActiveTab(id);
