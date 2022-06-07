@@ -18,33 +18,28 @@ import ExamplePage1 from "./pages/ExampleModule/ExamplePage1";
 const NestedPage = lazy(() => import("./pages/NestedPage/routes"));
 
 export function Routess() {
-  const isAuthorized = true;
+  const isAuthorized = true; //from reddux auth
 
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
       <Routes>
         {!isAuthorized ? (
           /*Render auth page when user at `/auth` and not authorized.*/
-          <Route path="/*" element={<AuthPage />} />
+          <Route path="/*" element={<AuthPage/>} />
         ) : (
           /*Otherwise Navigate to root page (`/`)*/
-          <Route path="/auth/*" element={<Navigate to="/module_1/dashboard" />} />
-        )}
-
-        {!isAuthorized ? (
-          /*Navigate to `/auth` when user is not authorized*/
-          <Route path="*" element={<Navigate to="/auth/login" />} />
-        ) : (
           <Route element={<Layout />} /* Main Content with Layout */>
-            <Route path="/" element={<Navigate to="/module_1/dashboard" />} />
+            <Route path="/auth*" element={<Navigate to="/module_1/dashboard" />} />
             <Route path="/module_1/dashboard" element={<Test />} />
-            <Route
-              path="/module_2/examplePage1"
-              element={<ExamplePage1 />}
-            />
+            <Route path="/module_2/examplePage1" element={<ExamplePage1 />} />
+            {/* module */}
             <Route element={<ProtectedRoute allowedRoles={[1, 5, 6]} />}>
-              <Route path="/module_1/google-material/*" element={<NestedPage />} />
+              <Route
+                path="/module_1/google-material/*"
+                element={<NestedPage />}
+              />
             </Route>
+            {/* module */}
           </Route>
         )}
 

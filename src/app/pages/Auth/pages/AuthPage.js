@@ -90,13 +90,12 @@ export function AuthPage() {
             {/* begin::Content body */}
             <div className="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
               <Routes>
-                <Route path="*" element={<Navigate to="/auth/login" />} />
+              <Route path="/*" element={<Navigate to="/auth/login" />} />
+                <Route path="/auth/login" element={<Login />} />
 
-                <Route path="/login" element={<Login />} />
-
-                <Route path="/registration" element={<Registration />} />
+                <Route path="/auth/registration" element={<Registration />} />
                 <Route
-                  path="/forgot-password"
+                  path="/auth/forgot-password"
                   element={<ForgotPassword />}
                 />
               </Routes>
