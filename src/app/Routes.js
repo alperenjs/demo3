@@ -7,15 +7,15 @@
 import React, { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Layout, LayoutSplashScreen } from "../_metronic/layout";
-import { AuthPage } from "./modules/Auth";
-import ErrorsPage from "./modules/ErrorsExamples/ErrorsPage";
-import Unauthorized from "./modules/ErrorsExamples/Unauthorized";
-import ProtectedRoute from "./base/ProtectedRoute";
+import { AuthPage } from "./pages/Auth";
+import ErrorsPage from "./pages/ErrorsExamples/ErrorsPage";
+import Unauthorized from "./pages/ErrorsExamples/Unauthorized";
+import ProtectedRoute from "./base/components/ProtectedRoute";
 
-import Test from "./modules/Test/Test";
-import ExamplePage1 from "./modules/ExampleModule/ExamplePage1";
+import Test from "./pages/Test/Test";
+import ExamplePage1 from "./pages/ExampleModule/ExamplePage1";
 
-const NestedPage = lazy(() => import("./modules/NestedPage/routes"));
+const NestedPage = lazy(() => import("./pages/NestedPage/routes"));
 
 export function Routess() {
   const isAuthorized = true;
@@ -28,7 +28,7 @@ export function Routess() {
           <Route path="/*" element={<AuthPage />} />
         ) : (
           /*Otherwise Navigate to root page (`/`)*/
-          <Route path="/auth/*" element={<Navigate to="/dashboard" />} />
+          <Route path="/auth/*" element={<Navigate to="/module_1/dashboard" />} />
         )}
 
         {!isAuthorized ? (
@@ -36,10 +36,14 @@ export function Routess() {
           <Route path="*" element={<Navigate to="/auth/login" />} />
         ) : (
           <Route element={<Layout />} /* Main Content with Layout */>
-            <Route path="/dashboard" element={<Test />} />
-            <Route path="/examplePage1" element={<ExamplePage1 />} />
+            <Route path="/" element={<Navigate to="/module_1/dashboard" />} />
+            <Route path="/module_1/dashboard" element={<Test />} />
+            <Route
+              path="/module_2/examplePage1"
+              element={<ExamplePage1 />}
+            />
             <Route element={<ProtectedRoute allowedRoles={[1, 5, 6]} />}>
-              <Route path="/google-material/*" element={<NestedPage />} />
+              <Route path="/module_1/google-material/*" element={<NestedPage />} />
             </Route>
           </Route>
         )}

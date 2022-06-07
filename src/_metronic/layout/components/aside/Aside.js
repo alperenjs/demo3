@@ -3,6 +3,7 @@ import objectPath from "object-path";
 import React, { useMemo, useState } from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import SVG from "react-inlinesvg";
+import { menu } from "../../../../app/Menu";
 import { toAbsoluteUrl } from "../../../_helpers";
 import { useHtmlClassService } from "../../_core/MetronicLayout";
 import { Brand } from "../brand/Brand";
@@ -10,8 +11,13 @@ import { LanguageSelectorDropdown } from "../extras/dropdowns/LanguageSelectorDr
 import { QuickUserToggler } from "../extras/QuickUserToggler";
 import { KTUtil } from "./../../../_assets/js/components/util";
 import { AsideMenu } from "./aside-menu/AsideMenu";
+import { useLocation } from "react-router-dom";
 
 export function Aside() {
+  const location = useLocation();
+  const currentPathID = location.pathname.split("/").slice(1)[0];
+
+  const auth = { user: { name: "alperen" }, roles: [1, 2, 3] }; //getfrom store
   const uiService = useHtmlClassService();
 
   const layoutProps = useMemo(() => {
@@ -52,12 +58,9 @@ export function Aside() {
     };
   }, [uiService]);
 
-  const tabs = {
-    tabId1: "kt_aside_tab_1",
-    tabId2: "kt_aside_tab_2",
-  };
-
-  const [activeTab, setActiveTab] = useState(tabs.tabId1);
+  const [activeTab, setActiveTab] = useState(() => {
+    return currentPathID;
+  });
 
   const handleTabChange = (id) => {
     setActiveTab(id);
@@ -67,6 +70,14 @@ export function Aside() {
     );
     if (asideWorkspace) {
       KTUtil.scrollUpdate(asideWorkspace);
+    }
+  };
+
+  const isAuthorized = (allowedRoles) => {
+    if (auth?.roles?.find((role) => allowedRoles?.includes(role))) {
+      return true;
+    } else {
+      return false;
     }
   };
 
@@ -85,73 +96,40 @@ export function Aside() {
             {/* begin::Nav */}
             <ul className="list-unstyled flex-column" role="tablist">
               {/* begin::Item */}
-              <li
-                className="nav-item mb-3"
-                data-toggle="tooltip"
-                data-placement="rigth"
-                data-container="body"
-                data-boundary="window"
-                title="Latest Project"
-              >
-                <OverlayTrigger
-                  placement="right"
-                  overlay={
-                    <Tooltip id="latest-project">Latest1 Project</Tooltip>
-                  }
-                >
-                  <a
-                    className={`nav-link btn btn-icon btn-clean btn-lg ${activeTab ===
-                      tabs.tabId1 && "active"}`}
-                    data-toggle="tab"
-                    data-target={`#${tabs.tabId1}`}
-                    role="tab"
-                    onClick={() => handleTabChange(tabs.tabId1)}
+              {menu.map((menuItem) => {
+                return isAuthorized(menuItem.role) ? (
+                  <li
+                    key={menuItem.id}
+                    className="nav-item mb-3"
+                    data-toggle="tooltip"
+                    data-placement="rigth"
+                    data-container="body"
+                    data-boundary="window"
+                    title={menuItem.title}
                   >
-                    <span className="svg-icon svg-icon-lg">
-                      <SVG
-                        src={toAbsoluteUrl(
-                          "/media/svg/icons/Layout/Layout-4-blocks.svg"
-                        )}
-                      />
-                    </span>
-                  </a>
-                </OverlayTrigger>
-              </li>
-              {/* end::Item */}
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={
+                        <Tooltip id="latest-project">{menuItem.title}</Tooltip>
+                      }
+                    >
+                      <a
+                        className={`nav-link btn btn-icon btn-clean btn-lg ${activeTab ===
+                          menuItem.id && "active"}`}
+                        data-toggle="tab"
+                        data-target={`#${menuItem.id}`}
+                        role="tab"
+                        onClick={() => handleTabChange(menuItem.id)}
+                      >
+                        <span className="svg-icon svg-icon-lg">
+                          <i className={menuItem.icon}></i>
+                        </span>
+                      </a>
+                    </OverlayTrigger>
+                  </li>
+                ) : null;
+              })}
 
-              {/* begin::Item */}
-              <li
-                className="nav-item mb-3"
-                data-toggle="tooltip"
-                data-placement="rigth"
-                data-container="body"
-                data-boundary="window"
-                title="Metronic Features"
-              >
-                <OverlayTrigger
-                  placement="right"
-                  overlay={
-                    <Tooltip id="metronic-features">Metronic Featu2res</Tooltip>
-                  }
-                >
-                  <a
-                    className={`nav-link btn btn-icon btn-clean btn-lg ${activeTab ===
-                      tabs.tabId2 && "active"}`}
-                    data-toggle="tab"
-                    data-target={`#${tabs.tabId2}`}
-                    onClick={() => handleTabChange(tabs.tabId2)}
-                    role="tab"
-                  >
-                    <span className="svg-icon svg-icon-lg">
-                      <SVG
-                        src={toAbsoluteUrl(
-                          "/media/svg/icons/Communication/Group.svg"
-                        )}
-                      />
-                    </span>
-                  </a>
-                </OverlayTrigger>
-              </li>
               {/* end::Item */}
             </ul>
             {/* end::Nav */}
@@ -297,7 +275,7 @@ export function Aside() {
                 <div className="tab-content">
                   <AsideMenu
                     activeMenu={activeTab}
-                    isActive={activeTab === tabs.tabId1}
+                    isActive={activeTab === menu[0].id}
                     layoutProps={layoutProps}
                   />
                 </div>

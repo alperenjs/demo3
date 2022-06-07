@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
-import { AsideMenuList } from "./AsideMenuList";
+import { menu } from "../../../../../app/Menu";
 import { useHtmlClassService } from "../../../_core/MetronicLayout";
-import { AsideSearchList } from "../aside-menu-2/AsideSearchList";
+import { AsideMenuList } from "./AsideMenuList";
 
 export function AsideMenu({ isActive, activeMenu }) {
   const uiService = useHtmlClassService();
@@ -24,11 +24,17 @@ export function AsideMenu({ isActive, activeMenu }) {
           className={`aside-menu  min-h-lg-800px ${layoutProps.asideClassesFromConfig}`}
           {...layoutProps.asideMenuAttr}
         >
-          {activeMenu === "kt_aside_tab_1" ? (
-            <AsideMenuList layoutProps={layoutProps} />
-          ) : (
-            <AsideSearchList layoutProps={layoutProps} />
-          )}
+          {menu
+            .filter((x) => x.id === activeMenu)
+            .map((menuItem) => {
+              return (
+                <AsideMenuList
+                  key={menuItem.id}
+                  data={menuItem.subMenus}
+                  layoutProps={layoutProps}
+                />
+              );
+            })}
         </div>
         {/* end::Menu Container */}
       </div>

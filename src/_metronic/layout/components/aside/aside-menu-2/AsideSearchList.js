@@ -34,7 +34,7 @@ export function AsideSearchList({layoutProps}) {
 
         <li
           className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/examplePage1",
+            "/exampleModule/examplePage1",
             false
           )}`}
           aria-haspopup="true"

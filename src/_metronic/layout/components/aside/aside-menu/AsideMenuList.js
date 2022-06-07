@@ -5,168 +5,141 @@ import { NavLink } from "react-router-dom";
 import SVG from "react-inlinesvg";
 import { toAbsoluteUrl, checkIsActive } from "../../../../_helpers";
 
-export function AsideMenuList({ layoutProps }) {
+export function AsideMenuList({ data, layoutProps }) {
+  const auth = { user: { name: "alperen" }, roles: [1, 2, 3] }; //getfrom store
   const location = useLocation();
-  const getMenuItemActive = (url, hasSubmenu = false) => {
+
+const getMenuItemActive = (url, hasSubmenu = false) => {
     return checkIsActive(location, url)
       ? ` ${!hasSubmenu && "menu-item-active"} menu-item-open `
       : "";
+  };
+
+  const isAuthorized = (allowedRoles) => {
+    if (auth?.roles?.find((role) => allowedRoles?.includes(role))) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
   return (
     <>
       {/* begin::Menu Nav */}
       <ul className={`menu-nav ${layoutProps.ulClasses}`}>
-        {/*begin::1 Level*/}
-        {/* <li
-          className={`menu-item ${getMenuItemActive("/dashboard", false)}`}
-          aria-haspopup="true"
-        >
-          <NavLink className="menu-link" to="/dashboard">
-            <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")} />
-            </span>
-            <span className="menu-text">Dashboard</span>
-          </NavLink>
-        </li> */}
-        {/*end::1 Level*/}
-
-        {/* Components */}
-
-        <li
-          className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/dashboard",
-            false
-          )}`}
-          aria-haspopup="true"
-          data-menu-toggle="hover"
-        >
-          <NavLink className="menu-link menu" to="/dashboard">
-            <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
-            </span>
-            <span className="menu-text">single item</span>
-          </NavLink>
-        </li>
-
-        {/* begin::section */}
-        <li className="menu-section ">
-          <h4 className="menu-text">SECTION 1</h4>
-          <i className="menu-icon flaticon-more-v2"></i>
-        </li>
-        {/* end:: section */}
-
-        {/* Material-UI */}
-        {/*begin::1 Level*/}
-        <li
-          className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/google-material",
-            true
-          )}`}
-          aria-haspopup="true"
-          data-menu-toggle="hover"
-        >
-          <NavLink className="menu-link menu-toggle" to="/google-material">
-            <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
-            </span>
-            <span className="menu-text">Material UI</span>
-            <i className="menu-arrow" />
-          </NavLink>
-          <div className="menu-submenu ">
-            <i className="menu-arrow" />
-            <ul className="menu-subnav">
-              <li className="menu-item  menu-item-parent" aria-haspopup="true">
-                <span className="menu-link">
-                  <span className="menu-text">Material UI</span>
+        {/* module pages - submenus */}
+        {data.map((menuItem) => {
+          return isAuthorized(menuItem.role) ? (
+            <li
+              key={menuItem.id}
+              className={`menu-item menu-item-submenu ${getMenuItemActive(
+                menuItem.url,
+                menuItem.children?.length > 0 ? true : false
+              )}`}
+              aria-haspopup="true"
+              data-menu-toggle="hover"
+            >
+              <NavLink className="menu-link menu-toggle" to={menuItem.url}>
+                <span className="svg-icon menu-icon">
+                  <SVG
+                    src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")}
+                  />
                 </span>
-              </li>
-
-              {/* Inputs */}
-              {/*begin::2 Level*/}
-              <li
-                className={`menu-item menu-item-submenu ${getMenuItemActive(
-                  "/google-material/inputs",
-                  true
-                )}`}
-                aria-haspopup="true"
-                data-menu-toggle="hover"
-              >
-                <NavLink
-                  className="menu-link menu-toggle"
-                  to="/google-material/inputs"
-                >
-                  <i className="menu-bullet menu-bullet-dot">
-                    <span />
-                  </i>
-                  <span className="menu-text">Inputs</span>
+                <span className="menu-text">{menuItem.title}</span>
+                {menuItem.children?.length > 0 ? (
                   <i className="menu-arrow" />
-                </NavLink>
-                <div className="menu-submenu ">
-                  <i className="menu-arrow" />
-                  <ul className="menu-subnav">
-                    {/*begin::3 Level*/}
-                    <li
-                      className={`menu-item  ${getMenuItemActive(
-                        "/google-material/inputs/autocomplete"
-                      )}`}
-                      aria-haspopup="true"
-                    >
-                      <NavLink
-                        className="menu-link"
-                        to="/google-material/inputs/autocomplete"
-                      >
-                        <i className="menu-bullet menu-bullet-dot">
-                          <span />
-                        </i>
-                        <span className="menu-text">Autocomplete</span>
-                      </NavLink>
-                    </li>
-                    {/*end::3 Level*/}
+                ) : null}
+              </NavLink>
 
-                    <li
-                      className={`menu-item  ${getMenuItemActive(
-                        "/google-material/inputs/test2"
-                      )}`}
-                      aria-haspopup="true"
-                    >
-                      <NavLink
-                        className="menu-link"
-                        to="/google-material/inputs/test2"
-                      >
-                        <i className="menu-bullet menu-bullet-dot">
-                          <span />
-                        </i>
-                        <span className="menu-text">test 2</span>
-                      </NavLink>
-                    </li>
+              {menuItem.children?.length > 0
+                ? menuItem.children.map((firstChild) => {
+                    return isAuthorized(firstChild.role) ? (
+                      <div key={firstChild.id} className="menu-submenu ">
+                        <i className="menu-arrow" />
+                        <ul className="menu-subnav">
+                          <li
+                            className="menu-item  menu-item-parent"
+                            aria-haspopup="true"
+                          >
+                            <span className="menu-link">
+                              <span className="menu-text">
+                                {firstChild.title}
+                              </span>
+                            </span>
+                          </li>
 
-                    <li
-                      className={`menu-item  ${getMenuItemActive(
-                        "/google-material/inputs/duru"
-                      )}`}
-                      aria-haspopup="true"
-                    >
-                      <NavLink
-                        className="menu-link"
-                        to="/google-material/inputs/duru"
-                      >
-                        <i className="menu-bullet menu-bullet-dot">
-                          <span />
-                        </i>
-                        <span className="menu-text">Duru</span>
-                      </NavLink>
-                    </li>
+                          {/* Inputs */}
+                          {/*begin::2 Level*/}
+                          <li
+                            className={`menu-item menu-item-submenu ${getMenuItemActive(
+                              firstChild.url,
+                              true
+                            )}`}
+                            aria-haspopup="true"
+                            data-menu-toggle="hover"
+                          >
+                            <NavLink
+                              className={`menu-link ${
+                                firstChild.children?.length > 0
+                                  ? "menu-toggle"
+                                  : ""
+                              }`}
+                              to={firstChild.url}
+                            >
+                              <i className="menu-bullet menu-bullet-dot">
+                                <span />
+                              </i>
+                              <span className="menu-text">
+                                {firstChild.title}
+                              </span>
+                              {firstChild.children?.length > 0 ? (
+                                <i className="menu-arrow" />
+                              ) : null}
+                            </NavLink>
 
-
-                  </ul>
-                </div>
-              </li>
-              {/*end::2 Level*/}
-            </ul>
-          </div>
-        </li>
-        {/*end::1 Level*/}
+                            {/* second level child */}
+                            {firstChild.children?.length > 0 ? (
+                              <div className="menu-submenu ">
+                                <i className="menu-arrow" />
+                                <ul className="menu-subnav">
+                                  {/*begin::3 Level*/}
+                                  {firstChild.children.map((secondChild) => {
+                                    return isAuthorized(secondChild.role) ? (
+                                      <li
+                                        key={secondChild.id}
+                                        className={`menu-item  ${getMenuItemActive(
+                                          secondChild.url
+                                        )}`}
+                                        aria-haspopup="true"
+                                      >
+                                        <NavLink
+                                          className="menu-link"
+                                          to={secondChild.url}
+                                        >
+                                          <i className="menu-bullet menu-bullet-dot">
+                                            <span />
+                                          </i>
+                                          <span className="menu-text">
+                                            {secondChild.title}
+                                          </span>
+                                        </NavLink>
+                                      </li>
+                                    ) : null;
+                                  })}
+                                  {/*end::3 Level*/}
+                                </ul>
+                              </div>
+                            ) : null}
+                          </li>
+                          {/*end::2 Level*/}
+                        </ul>
+                      </div>
+                    ) : null;
+                  })
+                : null}
+            </li>
+          ) : null;
+        })}
       </ul>
       {/* end::Menu Nav */}
     </>
