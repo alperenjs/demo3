@@ -17,7 +17,7 @@ export function Routess() {
   const location = useLocation();
 
   useEffect(() => {
-    setisAuth(!AuthService.isTokenExpired());
+    setisAuth(AuthService.isAuthenticated());
   }, [location, setisAuth]);
 
   return (

@@ -22,7 +22,7 @@ const AuthService = {
   isTokenExpired() {
     const token = this.getAccessToken();
 
-    if (token === null) {
+    if (token === null || token === "") {
       return true;
     } else {
       return isExpired(token);
