@@ -4,6 +4,8 @@
  */
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import React from "react";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 import "react-app-polyfill/ie11";
 import "react-app-polyfill/stable";
 // Datepicker
@@ -16,39 +18,24 @@ import { MetronicI18nProvider } from "./_metronic/i18n";
 import {
   MetronicLayoutProvider,
   MetronicSplashScreenProvider,
-  MetronicSubheaderProvider
+  MetronicSubheaderProvider,
 } from "./_metronic/layout";
 import "./_metronic/_assets/plugins/flaticon/flaticon.css";
 import "./_metronic/_assets/plugins/flaticon2/flaticon.css";
 // import "./sass/style.react.rtl.css"; // RTL version
 import "./_metronic/_assets/plugins/keenthemes-icons/font/ki.css";
+import { setupInterceptor } from "./app/base/utils/http";
 
-/**
- * Base URL of the website.
- *
- * @see https://facebook.github.io/create-react-app/docs/using-the-public-folder
- */
-const { PUBLIC_URL } = process.env;
-
-/**
- * Creates `axios-mock-adapter` instance for provided `axios` instance, add
- * basic Metronic mocks and returns it.
- *
- * @see https://github.com/ctimmerm/axios-mock-adapter
- */
-
-/**
- * Inject metronic interceptors for axios.
- *
- * @see https://github.com/axios/axios#interceptors
- */
+setupInterceptor(store);
 
 ReactDOM.render(
   <MetronicI18nProvider>
     <MetronicLayoutProvider>
       <MetronicSubheaderProvider>
         <MetronicSplashScreenProvider>
-          <App basename={PUBLIC_URL} />
+          <Provider store={store}>
+            <App />
+          </Provider>
         </MetronicSplashScreenProvider>
       </MetronicSubheaderProvider>
     </MetronicLayoutProvider>

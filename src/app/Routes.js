@@ -1,31 +1,31 @@
-/**
- * High level router.
- *
- * Note: It's recommended to compose related routes in internal router
- * components (e.g: `src/app/modules/Auth/pages/AuthPage`, `src/app/BasePage`).
- */
-import React, { lazy, Suspense } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import React, { lazy, Suspense, useEffect, useState } from "react";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Layout, LayoutSplashScreen } from "../_metronic/layout";
+import ProtectedRoute from "./base/components/ProtectedRoute";
 import { AuthPage } from "./pages/Auth";
 import ErrorsPage from "./pages/ErrorsExamples/ErrorsPage";
 import Unauthorized from "./pages/ErrorsExamples/Unauthorized";
-import ProtectedRoute from "./base/components/ProtectedRoute";
-
-import Test from "./pages/Test/Test";
 import ExamplePage1 from "./pages/ExampleModule/ExamplePage1";
+import Test from "./pages/Test/Test";
+import AuthService from "./base/services/authentication.service";
 
 const NestedPage = lazy(() => import("./pages/NestedPage/routes"));
 
 export function Routess() {
-  const isAuthorized = true; //from reddux auth
+  const [isAuthorized, setisAuth] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    setisAuth(!AuthService.isTokenExpired());
+  }, [location, setisAuth]);
 
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
       <Routes>
         {!isAuthorized ? (
           /*Render auth page when user at `/auth` and not authorized.*/
-          <Route path="/*" element={<AuthPage/>} />
+          <Route path="/*" element={<AuthPage />} />
         ) : (
           /*Otherwise Navigate to root page (`/`)*/
           <Route element={<Layout />} /* Main Content with Layout */>
