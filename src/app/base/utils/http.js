@@ -1,6 +1,7 @@
 import axios from "axios";
+import AuthService from "../services/authentication.service";
 
-const { REACT_APP_BASE_URL, REACT_APP_API_KEY } = process.env;
+const { REACT_APP_BASE_URL } = process.env;
 
 const https = axios.create({
   baseURL: REACT_APP_BASE_URL,
@@ -18,10 +19,9 @@ export const setupInterceptor = (store) => {
     }
   );
   https.interceptors.request.use((config) => {
-    //   const {token} = store.getState().authentication;
-    const { token } = "token1234";
+    const token = AuthService.getAccessToken();
 
-    if (token) {
+    if (token !== null || token !== "") {
       config.headers.Authorization = `Bearer ${token}`;
     }
 
