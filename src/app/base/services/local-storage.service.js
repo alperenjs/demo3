@@ -1,6 +1,6 @@
 export const LocalStorageService = {
   setItem(key, value) {
-    localStorage.setItem(key, value);
+    localStorage.setItem(key, JSON.stringify(value));
   },
 
   getItem(key) {

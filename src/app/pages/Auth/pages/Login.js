@@ -1,9 +1,10 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
-
+import AuthService from "../../../base/services/authentication.service";
 
 /*
   INTL (i18n) docs:
@@ -23,6 +24,7 @@ const initialValues = {
 function Login(props) {
   const { intl } = props;
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Wrong email format")
@@ -54,7 +56,7 @@ function Login(props) {
   const getInputClasses = (fieldname) => {
     if (formik.touched[fieldname] && formik.errors[fieldname]) {
       return "is-invalid";
-  }
+    }
 
     if (formik.touched[fieldname] && !formik.errors[fieldname]) {
       return "is-valid";
@@ -72,7 +74,6 @@ function Login(props) {
         // login(values.email, values.password)
         //   .then(({ data: { authToken } }) => {
         //     disableLoading();
-
         //     props.login(authToken);
         //   })
         //   .catch(() => {
@@ -89,6 +90,16 @@ function Login(props) {
       }, 1000);
     },
   });
+
+  const login = () => {
+    const testToken =
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE2NTQ3Nzg2MjgsImV4cCI6MTY4NjMxNDY0MCwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.ekzfK9YAF5md5f-F89PRuQquhzItJJpGFDNStzqnp8Y";
+
+    AuthService.setUser({ name: "alperen", roles: [1, 2, 3] });
+    AuthService.setTokens(testToken, testToken);
+
+    navigate("/");
+  };
 
   return (
     <div className="login-form login-signin" id="kt_login_signin_form">
@@ -162,6 +173,7 @@ function Login(props) {
             <FormattedMessage id="AUTH.GENERAL.FORGOT_BUTTON" />
           </Link>
           <button
+            onClick={() => login()}
             id="kt_login_signin_submit"
             type="submit"
             disabled={formik.isSubmitting}

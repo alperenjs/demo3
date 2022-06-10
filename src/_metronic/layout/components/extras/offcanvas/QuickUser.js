@@ -15,7 +15,7 @@ export function QuickUser() {
     if (toggle) {
       toggle.click();
     }
-    history.push("/logout");
+    history.push("/auth");
   };
 
   return (
