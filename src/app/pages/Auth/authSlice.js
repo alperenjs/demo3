@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { https } from "util";
-import axios from "axios";
 
 const { REACT_APP_BASE_URL, REACT_APP_API_KEY } = process.env;
 
