@@ -1,0 +1,49 @@
+.btn.sign-btn{
+    background-color: #036051;
+    border: none;
+    color: white;
+}
+.btn.sign-btn:hover{
+    color: white;
+    background-color: #086A54;
+}
+.password-text {
+    color: #D93F21;
+}
+.password-text:hover {
+    color: #ff2a00;
+}
+.sign-up-btn{
+    color: #20DC49;
+}
+.btn.btn-next{
+    background-image: linear-gradient(to left,#036051, #40F372);
+    border: none;
+    color: white;
+    position: absolute;
+}
+.btn.btn-back{
+    background-color: #F1F1F1;
+    color: #086A54;
+}
+.test{
+    height: 100%;
+}
+
+.r-btn{
+    color: #525252;
+}
+
+.btn.btn-last{
+    background-color: #036051;
+    color: white;
+}
+.icon{
+    cursor: pointer;
+    margin-left: 10px;
+}
+.input-fields {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

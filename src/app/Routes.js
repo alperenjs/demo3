@@ -8,7 +8,8 @@ import Unauthorized from "./pages/ErrorsExamples/Unauthorized";
 import ExamplePage1 from "./pages/ExampleModule/ExamplePage1";
 import Test from "./pages/Test/Test";
 import AuthService from "./base/services/authentication.service";
-
+import LastPage from "./pages/Test/LastPage";
+import Authorization from "./pages/Auth/pages/Authorization";
 const NestedPage = lazy(() => import("./pages/NestedPage/routes"));
 
 export function Routess() {
@@ -27,6 +28,7 @@ export function Routess() {
           /*Render auth page when user at `/auth` and not authorized.*/
           <Route path="/*" element={<AuthPage />} />
         ) : (
+          
           /*Otherwise Navigate to root page (`/`)*/
           <Route element={<Layout />} /* Main Content with Layout */>
             <Route path="/*" element={<Navigate to="/module_1/dashboard" />} />
@@ -42,7 +44,7 @@ export function Routess() {
             {/* module */}
           </Route>
         )}
-
+        <Route path="/last-page" element={<LastPage />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<ErrorsPage /> /* Catch All */} />
       </Routes>

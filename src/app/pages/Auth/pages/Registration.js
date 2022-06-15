@@ -3,14 +3,14 @@ import React, { useState } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import "./custom.css"
 
 const initialValues = {
   fullname: "",
   email: "",
   username: "",
   password: "",
-  changepassword: "",
-  acceptTerms: false,
+  confirmPassword: "",
 };
 
 function Registration(props) {
@@ -50,22 +50,9 @@ function Registration(props) {
           id: "AUTH.VALIDATION.REQUIRED_FIELD",
         })
       ),
-    changepassword: Yup.string()
-      .required(
-        intl.formatMessage({
-          id: "AUTH.VALIDATION.REQUIRED_FIELD",
-        })
-      )
-      .when("password", {
-        is: (val) => (val && val.length > 0 ? true : false),
-        then: Yup.string().oneOf(
-          [Yup.ref("password")],
-          "Password and Confirm Password didn't match"
-        ),
-      }),
-    acceptTerms: Yup.bool().required(
-      "You must accept the terms and conditions"
-    ),
+      confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Password must match')
+      .required("Confirm password is required"),
   });
 
   const enableLoading = () => {
@@ -92,8 +79,8 @@ function Registration(props) {
     initialValues,
     validationSchema: RegistrationSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
-      setSubmitting(true);
-      enableLoading();
+      console.log(values) 
+     
       // register(values.email, values.fullname, values.username, values.password)
       //   .then(({ data: { authToken } }) => {
       //     props.register(authToken);
@@ -115,29 +102,26 @@ function Registration(props) {
   return (
     <div className="login-form login-signin" style={{ display: "block" }}>
       <div className="text-center mb-10 mb-lg-20">
-        <h3 className="font-size-h1">
-          <FormattedMessage id="AUTH.REGISTER.TITLE" />
+        <h3 className="font-size-h4">
+          <FormattedMessage id="AUTH.REGISTER.TITLE.STEP1" />
         </h3>
-        <p className="text-muted font-weight-bold">
-          Enter your details to create your account
-        </p>
       </div>
 
       <form
+      onSubmit={formik.handleSubmit}
         id="kt_login_signin_form"
         className="form fv-plugins-bootstrap fv-plugins-framework animated animate__animated animate__backInUp"
-        onSubmit={formik.handleSubmit}
+        
       >
-        {/* begin: Alert */}
         {formik.status && (
           <div className="mb-10 alert alert-custom alert-light-danger alert-dismissible">
             <div className="alert-text font-weight-bold">{formik.status}</div>
           </div>
         )}
-        {/* end: Alert */}
 
         {/* begin: Fullname */}
         <div className="form-group fv-plugins-icon-container">
+        <label>Full Name</label>
           <input
             placeholder="Full name"
             type="text"
@@ -145,7 +129,10 @@ function Registration(props) {
               "fullname"
             )}`}
             name="fullname"
-            {...formik.getFieldProps("fullname")}
+            id="fullname"
+            value={formik.values.fullname}
+            onChange={formik.handleChange}
+            
           />
           {formik.touched.fullname && formik.errors.fullname ? (
             <div className="fv-plugins-message-container">
@@ -154,9 +141,9 @@ function Registration(props) {
           ) : null}
         </div>
         {/* end: Fullname */}
-
         {/* begin: Email */}
         <div className="form-group fv-plugins-icon-container">
+        <label>Email</label>
           <input
             placeholder="Email"
             type="email"
@@ -164,6 +151,9 @@ function Registration(props) {
               "email"
             )}`}
             name="email"
+            id="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
             {...formik.getFieldProps("email")}
           />
           {formik.touched.email && formik.errors.email ? (
@@ -176,25 +166,7 @@ function Registration(props) {
 
         {/* begin: Username */}
         <div className="form-group fv-plugins-icon-container">
-          <input
-            placeholder="User name"
-            type="text"
-            className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              "username"
-            )}`}
-            name="username"
-            {...formik.getFieldProps("username")}
-          />
-          {formik.touched.username && formik.errors.username ? (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.username}</div>
-            </div>
-          ) : null}
-        </div>
-        {/* end: Username */}
-
-        {/* begin: Password */}
-        <div className="form-group fv-plugins-icon-container">
+        <label>Password</label>
           <input
             placeholder="Password"
             type="password"
@@ -202,6 +174,9 @@ function Registration(props) {
               "password"
             )}`}
             name="password"
+            id="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
             {...formik.getFieldProps("password")}
           />
           {formik.touched.password && formik.errors.password ? (
@@ -210,57 +185,54 @@ function Registration(props) {
             </div>
           ) : null}
         </div>
-        {/* end: Password */}
+        {/* end: Username */}
 
-        {/* begin: Confirm Password */}
+        {/* begin: Password */}
         <div className="form-group fv-plugins-icon-container">
+        <label>Confirm Password</label>
           <input
             placeholder="Confirm Password"
             type="password"
             className={`form-control form-control-solid h-auto py-5 px-6 ${getInputClasses(
-              "changepassword"
+              "password"
             )}`}
-            name="changepassword"
-            {...formik.getFieldProps("changepassword")}
+            name="confirmPassword"
+            id="confirmPassword"
+            value={formik.values.confirmPassword}
+            onChange={formik.handleChange}
+            {...formik.getFieldProps("confirmPassword")}
           />
-          {formik.touched.changepassword && formik.errors.changepassword ? (
+          {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
             <div className="fv-plugins-message-container">
-              <div className="fv-help-block">
-                {formik.errors.changepassword}
-              </div>
+              <div className="fv-help-block">{formik.errors.confirmPassword}</div>
             </div>
           ) : null}
         </div>
-        {/* end: Confirm Password */}
-
-        {/* begin: Terms and Conditions */}
-        <div className="form-group">
-          <label className="checkbox">
-            <input
-              type="checkbox"
-              name="acceptTerms"
-              className="m-1"
-              {...formik.getFieldProps("acceptTerms")}
-            />
+        {/* end: Password */}
+        <div className="d-flex justify-content-between">
+        <label className="checkbox">
+            
             <Link
               to="/terms"
               target="_blank"
-              className="mr-1"
+              className="mr-1 r-btn"
               rel="noopener noreferrer"
             >
               I agree the Terms & Conditions
             </Link>
+            <input
+              type="checkbox"
+              name="acceptTerms"
+              required
+              className="m-1"
+              {...formik.getFieldProps("rememberme")}
+            />
             <span />
           </label>
-          {formik.touched.acceptTerms && formik.errors.acceptTerms ? (
-            <div className="fv-plugins-message-container">
-              <div className="fv-help-block">{formik.errors.acceptTerms}</div>
-            </div>
-          ) : null}
-        </div>
-        {/* end: Terms and Conditions */}
-        <div className="form-group d-flex flex-wrap flex-center">
-          <button
+        
+      </div>
+        <div className="d-flex justify-content-around">
+          {/*}<button
             type="submit"
             disabled={
               formik.isSubmitting ||
@@ -272,13 +244,13 @@ function Registration(props) {
             <span>Submit</span>
             {loading && <span className="ml-3 spinner spinner-white"></span>}
           </button>
-
-          <Link to="/auth/login">
+          */}
+          <Link to="/auth/registration-step2">
             <button
-              type="button"
-              className="btn btn-light-primary font-weight-bold px-9 py-4 my-3 mx-4"
+              typkt_login_signin_forme="submit"
+              className="btn btn-next font-weight-bold px-25 py-4 my-3 mx-4 "
             >
-              Cancel
+              Next
             </button>
           </Link>
         </div>
