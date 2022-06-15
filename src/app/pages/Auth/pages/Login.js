@@ -5,8 +5,7 @@ import { FormattedMessage, injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import "./custom.css"
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
+import {Button, Tooltip} from '@material-ui/core';
 import { Icon } from 'react-icons-kit';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff'
 import {eye} from 'react-icons-kit/feather/eye'

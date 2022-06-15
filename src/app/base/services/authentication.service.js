@@ -2,8 +2,7 @@ import { isExpired } from "react-jwt";
 import { LocalStorageService } from "./local-storage.service";
 
 //will be removed after test 
-const testToken =
-  "";
+const testToken = "";
 
 const AuthService = {
   getAccessToken() {
