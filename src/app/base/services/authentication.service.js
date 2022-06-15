@@ -7,11 +7,11 @@ const testToken =
 
 const AuthService = {
   getAccessToken() {
-    return LocalStorageService.getItem("atoken") || testToken; // will be null after test
+    return LocalStorageService.getItem("atoken") || null; // will be null after test
   },
 
   getRefreshToken() {
-    return LocalStorageService.getItem("rtoken") || testToken; // will be null after test;
+    return LocalStorageService.getItem("rtoken") || null; // will be null after test;
   },
 
   setTokens(aToken, rToken) {
@@ -35,13 +35,25 @@ const AuthService = {
     return !isExpired(token);
   },
 
+  isAuthorized(allowedRoles) {
+    const user = AuthService.getUser();
+
+    if (user?.roles?.find((role) => allowedRoles?.includes(role))) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
   setUser(model) {
-    LocalStorageService.setItem("user", JSON.stringify(model));
+    LocalStorageService.setItem("user", model);
   },
 
   getUser() {
     if (this.isAuthenticated()) {
-      return JSON.parse(this.LocalStorageService.getItem("user"));
+      return JSON.parse(LocalStorageService.getItem("user"));
+    } else {
+      return null;
     }
   },
 

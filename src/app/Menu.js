@@ -5,7 +5,7 @@ export const menu = [
     type: "module",
     icon: "flaticon2-checking",
     url: null,
-    role: [1,2,3],
+    role: [1, 2, 3],
     subMenus: [
       {
         id: "menu-item-1",
@@ -20,7 +20,7 @@ export const menu = [
         title: "Parent Menu 1",
         type: "item",
         icon: "file",
-        url: "/module_1/google-material",
+        url: "/module_1/main",
         role: [1, 2, 3],
         children: [
           {
@@ -28,7 +28,7 @@ export const menu = [
             title: "Child 1",
             type: "item",
             icon: "file",
-            url: "/module_1/google-material/inputs/test2",
+            url: "/module_1/main/inputs/test2",
             role: [1, 2, 3],
           },
           {
@@ -36,7 +36,7 @@ export const menu = [
             title: "Child Parent 1",
             type: "item",
             icon: "file",
-            url: "/module_1/google-material/inputs",
+            url: "/module_1/main/inputs",
             role: [1, 2, 3],
             children: [
               {
@@ -44,7 +44,7 @@ export const menu = [
                 title: "child 2-1",
                 type: "item",
                 icon: "file",
-                url: "/module_1/google-material/inputs/test2",
+                url: "/module_1/main/inputs/test2",
                 role: [1, 2, 3],
               },
               {
@@ -52,13 +52,13 @@ export const menu = [
                 title: "child 2-2",
                 type: "item",
                 icon: "file",
-                url: "/module_1/google-material/inputs/duru",
+                url: "/module_1/main/inputs/duru",
                 role: [1, 2, 3],
               },
             ],
           },
         ],
-      }
+      },
     ],
   },
   {
@@ -78,5 +78,14 @@ export const menu = [
         role: [1, 2, 3],
       },
     ],
+  },
+  {
+    id: "module_3",
+    title: "Survey List",
+    type: "dynamic_list",
+    api: "/api/test/123",
+    icon: "flaticon2-crisp-icons",
+    url: null,
+    role: [1, 2, 3]
   },
 ];

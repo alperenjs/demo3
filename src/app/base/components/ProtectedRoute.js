@@ -1,12 +1,13 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import AuthService from "../services/authentication.service";
 
 function ProtectedRoute({ allowedRoles }) {
-  const auth = { user: { name: "alperen" }, roles: [1, 2, 3] }; //getfrom store
+  const user = AuthService.getUser();
 
-  return auth?.roles?.find((role) => allowedRoles?.includes(role)) ? (
+  return AuthService.isAuthorized(allowedRoles) ? (
     <Outlet />
-  ) : auth?.user ? (
+  ) : user ? (
     <Navigate to="/unauthorized" replace />
   ) : (
     <Navigate to="/auth/login" replace />

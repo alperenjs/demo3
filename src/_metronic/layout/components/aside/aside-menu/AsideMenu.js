@@ -27,13 +27,25 @@ export function AsideMenu({ isActive, activeMenu }) {
           {menu
             .filter((x) => x.id === activeMenu)
             .map((menuItem) => {
-              return (
-                <AsideMenuList
-                  key={menuItem.id}
-                  data={menuItem.subMenus}
-                  layoutProps={layoutProps}
-                />
-              );
+              if (menuItem.type === "dynamic_list") {
+                return (
+                  <AsideMenuList
+                    key={menuItem.id}
+                    api={menuItem.api}
+                    data={[]}
+                    layoutProps={layoutProps}
+                  />
+                );
+              } else {
+                return (
+                  <AsideMenuList
+                    key={menuItem.id}
+                    api={null}
+                    data={menuItem.subMenus}
+                    layoutProps={layoutProps}
+                  />
+                );
+              }
             })}
         </div>
         {/* end::Menu Container */}

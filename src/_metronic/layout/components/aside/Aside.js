@@ -12,12 +12,13 @@ import { QuickUserToggler } from "../extras/QuickUserToggler";
 import { KTUtil } from "./../../../_assets/js/components/util";
 import { AsideMenu } from "./aside-menu/AsideMenu";
 import { useLocation } from "react-router-dom";
+import AuthService from "../../../../app/base/services/authentication.service";
 
 export function Aside() {
   const location = useLocation();
   const currentPathID = location.pathname.split("/").slice(1)[0];
 
-  const auth = { user: { name: "alperen" }, roles: [1, 2, 3] }; //getfrom store
+  const user = AuthService.getUser();
   const uiService = useHtmlClassService();
 
   const layoutProps = useMemo(() => {
@@ -63,8 +64,8 @@ export function Aside() {
   });
 
   useEffect(() => {
-    setActiveTab(currentPathID)
-  }, [currentPathID])
+    setActiveTab(currentPathID);
+  }, [currentPathID]);
 
   const handleTabChange = (id) => {
     setActiveTab(id);
@@ -74,14 +75,6 @@ export function Aside() {
     );
     if (asideWorkspace) {
       KTUtil.scrollUpdate(asideWorkspace);
-    }
-  };
-
-  const isAuthorized = (allowedRoles) => {
-    if (auth?.roles?.find((role) => allowedRoles?.includes(role))) {
-      return true;
-    } else {
-      return false;
     }
   };
 
@@ -101,7 +94,7 @@ export function Aside() {
             <ul className="list-unstyled flex-column" role="tablist">
               {/* begin::Item */}
               {menu.map((menuItem) => {
-                return isAuthorized(menuItem.role) ? (
+                return AuthService.isAuthorized(menuItem.role) ? (
                   <li
                     key={menuItem.id}
                     className="nav-item mb-3"

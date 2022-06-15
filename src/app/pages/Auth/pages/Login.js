@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
@@ -9,6 +10,17 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { Icon } from 'react-icons-kit';
 import {eyeOff} from 'react-icons-kit/feather/eyeOff'
 import {eye} from 'react-icons-kit/feather/eye'
+import AuthService from "../../../base/services/authentication.service";
+
+/*
+  INTL (i18n) docs:
+  https://github.com/formatjs/react-intl/blob/master/docs/Components.md#formattedmessage
+*/
+
+/*
+  Formik+YUP:
+  https://jaredpalmer.com/formik/docs/tutorial#getfieldprops
+*/
 
 const initialValues = {
   email: "berra@demo.com",
@@ -22,6 +34,7 @@ function Login(props) {
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(eyeOff);
 
+  const navigate = useNavigate();
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Wrong email format")
@@ -86,8 +99,37 @@ function Login(props) {
     validationSchema: LoginSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       console.log(values);
+      enableLoading();
+      setTimeout(() => {
+        // login(values.email, values.password)
+        //   .then(({ data: { authToken } }) => {
+        //     disableLoading();
+        //     props.login(authToken);
+        //   })
+        //   .catch(() => {
+        //     setStatus(
+        //       intl.formatMessage({
+        //         id: "AUTH.VALIDATION.INVALID_LOGIN",
+        //       })
+        //     );
+        //   })
+        //   .finally(() => {
+        //     disableLoading();
+        //     setSubmitting(false);
+        //   });
+      }, 1000);
     },
   });
+
+  const login = () => {
+    const testToken =
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE2NTQ3Nzg2MjgsImV4cCI6MTY4NjMxNDY0MCwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.ekzfK9YAF5md5f-F89PRuQquhzItJJpGFDNStzqnp8Y";
+
+    AuthService.setUser({ name: "alperen", roles: [1, 2, 3] });
+    AuthService.setTokens(testToken, testToken);
+
+    navigate("/");
+  };
 
   return (
     
@@ -204,6 +246,7 @@ function Login(props) {
         <div className="form-group d-flex flex-wrap justify-content-center align-items-center">
           
           <button
+            onClick={() => login()}
             id="kt_login_signin_submit"
             type="submit"
             disabled={formik.isSubmitting}

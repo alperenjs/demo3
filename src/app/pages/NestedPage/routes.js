@@ -9,7 +9,7 @@ export default function nestedPage() {
     <Routes>
       <Route
         index
-        element={<Navigate to="/google-material/inputs/autocomplete" />}
+        element={<Navigate to="/main/inputs/autocomplete" />}
       />
       <Route
         path="/inputs/autocomplete"

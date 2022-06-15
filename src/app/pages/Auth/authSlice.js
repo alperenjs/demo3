@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { https } from "util";
-import axios from "axios";
 
 const { REACT_APP_BASE_URL, REACT_APP_API_KEY } = process.env;
 
@@ -27,25 +26,25 @@ const authSlice = createSlice({
 
 export const { setLoading, setAuth } = authSlice.actions;
 
-// export function fetchExample() {
-//   return async (dispatch, getState) => {
-//     await dispatch(setLoading(true));
+export function fetchExample() {
+  return async (dispatch, getState) => {
+    await dispatch(setLoading(true));
 
-//     try {
-//       const { status, data } = await https.get("/api/test");
+    try {
+      const { status, data } = await https.get("/api/test");
 
-//       let result = { ...data };
+      let result = { ...data };
 
-//       if (status === 200) {
-//         await dispatch(setAuth(result.auth));
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
+      if (status === 200) {
+        await dispatch(setAuth(result.auth));
+      }
+    } catch (error) {
+      console.log(error);
+    }
 
-//     await dispatch(setLoading(false));
-//   };
-// }
+    await dispatch(setLoading(false));
+  };
+}
 
 export const getAuth = (state) => state.auth.auth;
 
