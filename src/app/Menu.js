@@ -5,7 +5,7 @@ export const menu = [
     type: "module",
     icon: "flaticon2-checking",
     url: null,
-    role: [1,2,3],
+    role: [1, 2, 3],
     subMenus: [
       {
         id: "menu-item-1",
@@ -58,7 +58,7 @@ export const menu = [
             ],
           },
         ],
-      }
+      },
     ],
   },
   {
@@ -78,5 +78,14 @@ export const menu = [
         role: [1, 2, 3],
       },
     ],
+  },
+  {
+    id: "module_3",
+    title: "Survey List",
+    type: "dynamic_list",
+    api: "/api/test/123",
+    icon: "flaticon2-crisp-icons",
+    url: null,
+    role: [1, 2, 3]
   },
 ];
