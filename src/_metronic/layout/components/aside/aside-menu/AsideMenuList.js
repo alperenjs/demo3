@@ -7,6 +7,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import SVG from "react-inlinesvg";
 import { toAbsoluteUrl, checkIsActive } from "../../../../_helpers";
 import https from "../../../../../app/base/utils/http";
+import AuthService from "../../../../../app/base/services/authentication.service";
 
 export function AsideMenuList({ data, api, layoutProps }) {
   const auth = { user: { name: "alperen" }, roles: [1, 2, 3] }; //getfrom store
@@ -37,7 +38,7 @@ export function AsideMenuList({ data, api, layoutProps }) {
           title: "Survey Title 1",
           type: "item",
           icon: "pie-chart",
-          url: "/module_2/examplepage1",
+          url: `/surveylist/surveydetail/11`,
           role: [1, 2, 3],
         },
         {
@@ -45,7 +46,7 @@ export function AsideMenuList({ data, api, layoutProps }) {
           title: "Survey Title 2",
           type: "item",
           icon: "pie-chart",
-          url: "/module_2/examplepage1",
+          url: "/surveylist/surveydetail/12",
           role: [1, 2, 3],
         },
       ];
@@ -53,7 +54,7 @@ export function AsideMenuList({ data, api, layoutProps }) {
 
       setTimeout(() => {
         setApiData(dummyFetch);
-      setIsLoading(false);
+        setIsLoading(false);
       }, 1500);
 
       // declare the data fetching function
@@ -64,7 +65,6 @@ export function AsideMenuList({ data, api, layoutProps }) {
         console.log(status, data);
       };
 
-
       // call the function
       fetchData()
         // make sure to catch any error
@@ -72,17 +72,23 @@ export function AsideMenuList({ data, api, layoutProps }) {
     }
   }, [api]);
 
-  
   return (
     <>
       {/* begin::Menu Nav */}
       <ul className={`menu-nav ${layoutProps.ulClasses}`}>
         {/* module pages - static menus submenus */}
-       {isLoading && <Skeleton count={3} style={{marginBottom: 15}}/>}
-       
-        {data.length !== 0
-          ? data.map((menuItem) => {
-              return isAuthorized(menuItem.role) ? (
+        {isLoading && <Skeleton count={3} style={{ marginBottom: 15 }} />}
+
+        {data.length !== 0 &&
+          data.map((menuItem) => {
+            return (
+              AuthService.isAuthorized(menuItem.role) &&
+              (menuItem.type === "divider" ? (
+                <li key={menuItem.id} className="menu-section ">
+                  <h4 className="menu-text">{menuItem.title}</h4>
+                  <i className="menu-icon flaticon-more-v2"></i>
+                </li>
+              ) : (
                 <li
                   key={menuItem.id}
                   className={`menu-item menu-item-submenu ${getMenuItemActive(
@@ -106,7 +112,7 @@ export function AsideMenuList({ data, api, layoutProps }) {
 
                   {menuItem.children?.length > 0
                     ? menuItem.children.map((firstChild) => {
-                        return isAuthorized(firstChild.role) ? (
+                        return AuthService.isAuthorized(firstChild.role) ? (
                           <div key={firstChild.id} className="menu-submenu ">
                             <i className="menu-arrow" />
                             <ul className="menu-subnav">
@@ -158,7 +164,7 @@ export function AsideMenuList({ data, api, layoutProps }) {
                                       {/*begin::3 Level*/}
                                       {firstChild.children.map(
                                         (secondChild) => {
-                                          return isAuthorized(
+                                          return  AuthService.isAuthorized(
                                             secondChild.role
                                           ) ? (
                                             <li
@@ -195,14 +201,14 @@ export function AsideMenuList({ data, api, layoutProps }) {
                       })
                     : null}
                 </li>
-              ) : null;
-            })
-          : null}
-        
+              ))
+            );
+          })}
+
         {/* if list is dynamic generated with api data */}
         {api !== null
           ? apiData.map((menuItem) => {
-              return isAuthorized(menuItem.role) ? (
+              return AuthService.isAuthorized(menuItem.role) ? (
                 <li
                   key={menuItem.id}
                   className={`menu-item menu-item-submenu ${getMenuItemActive(

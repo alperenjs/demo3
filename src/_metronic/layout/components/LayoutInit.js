@@ -72,6 +72,12 @@ export function LayoutInit() {
 
       // Init Quick Notifications Offcanvas Panel
       KTLayoutQuickNotifications.init("kt_quick_notifications");
+
+      if (document.getElementsByClassName("aside-admin").length > 0) {
+        document.body.classList.add("admin-layout");
+      } else {
+        document.body.classList.remove("admin-layout");
+      }
     });
   }, []);
   return <></>;

@@ -24,8 +24,8 @@ export function AsideMenu({ isActive, activeMenu }) {
           className={`aside-menu  min-h-lg-800px ${layoutProps.asideClassesFromConfig}`}
           {...layoutProps.asideMenuAttr}
         >
-          {menu
-            .filter((x) => x.id === activeMenu)
+          {menu?.layout
+            ?.filter((x) => x.id === activeMenu)
             .map((menuItem) => {
               if (menuItem.type === "dynamic_list") {
                 return (

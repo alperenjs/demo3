@@ -1,13 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
-import { Link, Navigate, Route, Routes } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import "../../../../_metronic/_assets/sass/pages/login/classic/login-1.scss";
 import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
 import ForgotPassword from "./ForgotPassword";
 import Login from "./Login";
+import AuthService from "../../../base/services/authentication.service";
 import Registration from "./Registration";
 
 export function AuthPage() {
+  const [isAuthorized, setisAuth] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    setisAuth(AuthService.isAuthenticated());
+  }, [location, setisAuth]);
+
   return (
     <>
       <div className="d-flex flex-column flex-root">
@@ -26,7 +35,10 @@ export function AuthPage() {
             {/*begin: Aside Container*/}
             <div className="d-flex flex-row-fluid flex-column justify-content-between">
               {/* start:: Aside header */}
-              <Link to="/" className="flex-column-auto mt-5 pb-lg-0 pb-10">
+              <Link
+                to="/"
+                className="flex-column-auto mt-5 pt-20 pb-lg-0 pb-10"
+              >
                 <img
                   alt="Logo"
                   className="max-h-70px"
@@ -90,14 +102,24 @@ export function AuthPage() {
             {/* begin::Content body */}
             <div className="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
               <Routes>
-              <Route path="/*" element={<Navigate to="/auth/login" />} />
-                <Route path="/auth/login" element={<Login />} />
+                {isAuthorized ? (
+                  /*Render auth page when user at `/auth` and not authorized.*/
+                  <Route path="/*" element={<Navigate to="/" />} />
+                ) : (
+                  <>
+                    <Route path="/*" element={<Navigate to="/auth/login" />} />
+                    <Route path="/auth/login" element={<Login />} />
 
-                <Route path="/auth/registration" element={<Registration />} />
-                <Route
-                  path="/auth/forgot-password"
-                  element={<ForgotPassword />}
-                />
+                    <Route
+                      path="/auth/registration"
+                      element={<Registration />}
+                    />
+                    <Route
+                      path="/auth/forgot-password"
+                      element={<ForgotPassword />}
+                    />
+                  </>
+                )}
               </Routes>
             </div>
             {/*end::Content body*/}

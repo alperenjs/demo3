@@ -93,7 +93,7 @@ export function Aside() {
             {/* begin::Nav */}
             <ul className="list-unstyled flex-column" role="tablist">
               {/* begin::Item */}
-              {menu.map((menuItem) => {
+              {menu?.layout?.map((menuItem) => {
                 return AuthService.isAuthorized(menuItem.role) ? (
                   <li
                     key={menuItem.id}
@@ -272,7 +272,7 @@ export function Aside() {
                 <div className="tab-content">
                   <AsideMenu
                     activeMenu={activeTab}
-                    isActive={activeTab === menu[0].id}
+                    isActive={activeTab === menu?.layout[0].id}
                     layoutProps={layoutProps}
                   />
                 </div>
