@@ -132,7 +132,7 @@ export function AsideMenuList({ data, api, layoutProps }) {
                               <li
                                 className={`menu-item menu-item-submenu ${getMenuItemActive(
                                   firstChild.url,
-                                  true
+                                  firstChild.children?.length > 0 ? true : false
                                 )}`}
                                 aria-haspopup="true"
                                 data-menu-toggle="hover"
