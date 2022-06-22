@@ -32,6 +32,7 @@
         <li><a href="#adding-items-to-menu">Adding Items to Menu</a></li>
       </ul>
     </li>
+    <li><a href="#redux">Redux</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
     </li>
@@ -56,7 +57,7 @@ For two main layouts(admin and workspace) there are shared `components` folder, 
 
 ## How to Create New Page:
 * Go to related layout folder inside `app > pages > workspace`(for this example)
-* If it is a single page you can create a standart js file for the page if it may has multiple routes inside, you must create a folder for it for example inside workspace folder > `Survey > SurveyCreate.js` && `Survey > SurveyDetails.js` || `Survey > SurveyCreate.js`
+* If it is a single page we can create a standart js file for the page if it may has multiple routes inside, we must create a folder for it for example inside workspace folder > `Survey > SurveyCreate.js` && `Survey > SurveyDetails.js` || `Survey > SurveyCreate.js`
 * We need to add lazy loading routes for create folder to `workspace > routes.js` and after that we can specify inner routes in `Survey > routes.js` for Survey folder we just created 
 ##### Protected Route:
 * If the page need protection based on user role, we can use *ProtectedRoute* component in desired route file rather at lower or higher level.
@@ -74,6 +75,15 @@ All menu items are generating from Menu.js file. It provide us comfort for confi
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+## Redux
+This project is using Redux Toolkit with Thunk middleware for async API calls from store.
+###### How to create a `Redux Slice`?
+With Redux Toolkit we have slices which are state pieces for specific page or module. We can create Redux Slice with proper naming according to where it's involved for example: 
+For global user data we want to keep, we can create slice inside `pages > admin > Auth > authSlice.js`
+<br/>
+
+For basic redux slice layout you can check out [this page](https://github.com/alperenjs/demo3/blob/master/src/app/pages/Auth/authSlice.js)
+
 ### Built With
 
 * [React.js 16](https://reactjs.org/)
@@ -88,8 +98,6 @@ All menu items are generating from Menu.js file. It provide us comfort for confi
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
 1. Install NPM packages
    ```sh
@@ -117,6 +125,9 @@ _Below is an example of how you can instruct your audience on installing and set
 - [ ] Multi-language Support
     - [ ] English
     - [ ] Turkish
+- [ ] Documentation
+    - [ ] Http Calls
+    - [x] Redux
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
