@@ -5,8 +5,6 @@ import ProtectedRoute from "./base/components/ProtectedRoute";
 import { AuthPage } from "./pages/Auth";
 import ErrorsPage from "./pages/ErrorsExamples/ErrorsPage";
 import Unauthorized from "./pages/ErrorsExamples/Unauthorized";
-import ExamplePage1 from "./pages/ExampleModule/ExamplePage1";
-import Test from "./pages/Test/Test";
 import AuthService from "./base/services/authentication.service";
 import { AdminLayout } from "../_metronic/layout/components/AdminLayout";
 
